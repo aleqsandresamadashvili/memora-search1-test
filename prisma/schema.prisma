@@ -1,0 +1,220 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TUTOR
+  ADMIN
+}
+
+enum LessonType {
+  STUDENT_TO_TUTOR
+  TUTOR_TO_STUDENT
+  ONLINE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  PREFER_NOT_TO_SAY
+}
+
+model Country {
+  id        String   @id @default(cuid())
+  code      String   @unique // ISO country code (e.g., "GE", "US")
+  name      String
+  currency  String   // Currency code (e.g., "GEL", "USD")
+  timezone  String   // Timezone (e.g., "Asia/Tbilisi")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  subjectCategories SubjectCategory[]
+  users             User[]
+}
+
+model SubjectCategory {
+  id        String   @id @default(cuid())
+  name      String
+  countryId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  country  Country  @relation(fields: [countryId], references: [id])
+  subjects Subject[]
+}
+
+model Subject {
+  id               String   @id @default(cuid())
+  name             String
+  categoryId       String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  category       SubjectCategory @relation(fields: [categoryId], references: [id])
+  tutorSubjects  TutorSubject[]
+  bookings       Booking[]
+
+  @@unique([name, categoryId])
+}
+
+model User {
+  id                   String                 @id @default(cuid())
+  email                String                 @unique
+  password             String
+  role                 Role
+  emailVerified        Boolean                @default(false)
+  emailVerificationCode String?
+  phone                String?                @unique
+  phoneVerified        Boolean                @default(false)
+  phoneVerificationCode String?
+  firstName            String?
+  lastName             String?
+  dob                  DateTime?
+  gender               Gender?
+  countryId            String?
+  profileImage         String?
+  isActive             Boolean                @default(true)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+
+  // Relations
+  country              Country?               @relation(fields: [countryId], references: [id])
+  tutorProfile         TutorProfile?
+  bookingsAsStudent    Booking[]              @relation("StudentBookings")
+  ratingsAsStudent     Rating[]               @relation("StudentRatings")
+}
+
+model TutorProfile {
+  id                   String                 @id @default(cuid())
+  userId               String                 @unique
+  bio                  String?
+  hourlyRate           Float?
+  isVerified           Boolean                @default(false)
+  verificationStatus   VerificationStatus     @default(PENDING)
+  offersStudentToTutor Boolean                @default(false)
+  offersTutorToStudent Boolean                @default(false)
+  offersOnline         Boolean                @default(false)
+  yearsExperience      Int?
+  teachingHours        Int                    @default(0)
+  avgRating            Float                  @default(0)
+  ratingCount          Int                    @default(0)
+  pinnedComment        String?
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+
+  // Relations
+  user                 User                   @relation(fields: [userId], references: [id])
+  subjects             TutorSubject[]
+  travelAreas          TutorTravelArea[]
+  bookingsAsTutor      Booking[]             @relation("TutorBookings")
+  ratingsAsTutor       Rating[]              @relation("TutorRatings")
+}
+
+model TutorSubject {
+  id           String   @id @default(cuid())
+  tutorProfileId String
+  subjectId    String
+  hourlyRate   Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  tutorProfile TutorProfile @relation(fields: [tutorProfileId], references: [id])
+  subject      Subject      @relation(fields: [subjectId], references: [id])
+
+  @@unique([tutorProfileId, subjectId])
+}
+
+model TutorTravelArea {
+  id           String   @id @default(cuid())
+  tutorProfileId String
+  city         String
+  neighborhoods Json     // Array of neighborhood names
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  tutorProfile TutorProfile @relation(fields: [tutorProfileId], references: [id])
+}
+
+model Booking {
+  id           String        @id @default(cuid())
+  studentId    String
+  tutorId      String
+  subjectId    String
+  lessonType   LessonType
+  scheduledAt  DateTime
+  duration     Int           // Duration in minutes
+  price        Float
+  status       BookingStatus @default(PENDING)
+  notes        String?
+  location     String?       // For in-person lessons
+  meetingLink  String?       // For online lessons
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  // Relations
+  student      User          @relation("StudentBookings", fields: [studentId], references: [id])
+  tutor        TutorProfile  @relation("TutorBookings", fields: [tutorId], references: [id])
+  subject      Subject       @relation(fields: [subjectId], references: [id])
+  rating       Rating?
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  bookingId String   @unique
+  studentId String
+  tutorId   String
+  rating    Int      // 1-5 stars
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  booking   Booking      @relation(fields: [bookingId], references: [id])
+  student   User         @relation("StudentRatings", fields: [studentId], references: [id])
+  tutor     TutorProfile @relation("TutorRatings", fields: [tutorId], references: [id])
+}
+
+model EmailVerification {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  code      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model PhoneVerification {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  code      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}

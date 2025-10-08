@@ -1,0 +1,192 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Multi-country, roles, users, tutors, subjects, availability, bookings
+model Country {
+  id        String   @id @default(cuid())
+  code      String   @unique // ISO alpha-2
+  name      String
+  currency  String
+  timeZone  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]
+  subjects  Subject[]
+  subjectCategories SubjectCategory[]
+}
+
+enum Role {
+  STUDENT
+  TUTOR
+  ADMIN
+}
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  phone             String?   @unique
+  passwordHash      String
+  role              Role
+  firstName         String?
+  lastName          String?
+  dob               DateTime?
+  isEmailVerified   Boolean   @default(false)
+  isPhoneVerified   Boolean   @default(false)
+  phoneVerificationCode String?
+  phoneVerificationExpiresAt DateTime?
+  countryId         String
+  country           Country   @relation(fields: [countryId], references: [id])
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  tutorProfile      TutorProfile?
+  studentProfile    StudentProfile?
+  emailVerifications EmailVerification[]
+  bookingsAsStudent Booking[]
+  ratingsGiven      Rating[]
+}
+
+model StudentProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TutorProfile {
+  id              String           @id @default(cuid())
+  userId          String           @unique
+  user            User             @relation(fields: [userId], references: [id])
+  bio             String?
+  yearsExperience Int?             // personal experience, platform experience derived from createdAt
+  introVideoUrl   String?
+  isApproved      Boolean          @default(false)
+  verifiedTrusted Boolean          @default(false)
+  pinnedComment   String?
+  offersStudentToTutor Boolean     @default(false)
+  offersTutorToStudent Boolean     @default(false)
+  offersOnline        Boolean     @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  subjects        TutorSubject[]
+  availabilities  TutorAvailability[]
+  locations       TutorTravelArea[]
+  bookings        Booking[]        @relation("TutorBookings")
+  ratings         Rating[]
+}
+
+model SubjectCategory {
+  id        String   @id @default(cuid())
+  countryId String
+  country   Country  @relation(fields: [countryId], references: [id])
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  subjects  Subject[]
+  @@unique([countryId, name])
+}
+
+model Subject {
+  id          String          @id @default(cuid())
+  countryId   String
+  country     Country         @relation(fields: [countryId], references: [id])
+  categoryId  String
+  category    SubjectCategory @relation(fields: [categoryId], references: [id])
+  name        String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  tutorLinks  TutorSubject[]
+  bookings    Booking[]
+  @@unique([countryId, name])
+}
+
+model TutorSubject {
+  id          String   @id @default(cuid())
+  tutorId     String
+  tutor       TutorProfile @relation(fields: [tutorId], references: [id])
+  subjectId   String
+  subject     Subject @relation(fields: [subjectId], references: [id])
+  hourlyPrice Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@unique([tutorId, subjectId])
+}
+
+model TutorAvailability {
+  id        String   @id @default(cuid())
+  tutorId   String
+  tutor     TutorProfile @relation(fields: [tutorId], references: [id])
+  dayOfWeek Int      // 0-6
+  startTime String   // HH:mm
+  endTime   String   // HH:mm
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TutorTravelArea {
+  id          String   @id @default(cuid())
+  tutorId     String
+  tutor       TutorProfile @relation(fields: [tutorId], references: [id])
+  city        String
+  neighborhoods Json // list of neighborhoods as JSON array
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Booking {
+  id          String   @id @default(cuid())
+  tutorId     String
+  tutor       TutorProfile @relation("TutorBookings", fields: [tutorId], references: [id])
+  studentId   String
+  student     User     @relation(fields: [studentId], references: [id])
+  subjectId   String
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+  lessonType  LessonType
+  startAt     DateTime
+  endAt       DateTime
+  priceCents  Int
+  currency    String
+  status      BookingStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum LessonType {
+  STUDENT_TO_TUTOR
+  TUTOR_TO_STUDENT
+  ONLINE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Rating {
+  id          String   @id @default(cuid())
+  tutorId     String
+  tutor       TutorProfile @relation(fields: [tutorId], references: [id])
+  studentId   String
+  student     User     @relation(fields: [studentId], references: [id])
+  score       Int
+  comment     String?
+  createdAt   DateTime @default(now())
+}
+
+model EmailVerification {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  code        String
+  expiresAt   DateTime
+  usedAt      DateTime?
+  createdAt   DateTime @default(now())
+}

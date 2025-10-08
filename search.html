@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Tutors - Memora</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>Memora</h1></a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="signup-student.html" class="nav-link">Sign Up</a>
+                <a href="signup-tutor.html" class="nav-link nav-tutor">Become a Tutor</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Header -->
+    <section class="search-header">
+        <div class="container">
+            <div class="search-bar-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search for subjects, tutors, or keywords..." class="search-input">
+                    <button class="search-btn" onclick="performSearch()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Search Suggestions Dropdown -->
+                <div class="search-suggestions" id="searchSuggestions">
+                    <!-- Suggestions will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="search-container">
+        <div class="search-layout">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filters-header">
+                        <h3>Filters</h3>
+                        <button class="btn btn-text" onclick="clearFilters()">Clear All</button>
+                    </div>
+
+                    <!-- Subject Filters -->
+                    <div class="filter-group">
+                        <h4>Subjects</h4>
+                        <div class="filter-options" id="subjectFilters">
+                            <!-- Subject filters will be populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Grade Levels Filter -->
+                    <div class="filter-group">
+                        <h4>Grade Levels</h4>
+                        <div class="filter-options" id="gradeFilters">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="1">
+                                <span class="checkmark"></span>
+                                1st Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="2">
+                                <span class="checkmark"></span>
+                                2nd Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="3">
+                                <span class="checkmark"></span>
+                                3rd Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="4">
+                                <span class="checkmark"></span>
+                                4th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="5">
+                                <span class="checkmark"></span>
+                                5th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="6">
+                                <span class="checkmark"></span>
+                                6th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="7">
+                                <span class="checkmark"></span>
+                                7th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="8">
+                                <span class="checkmark"></span>
+                                8th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="9">
+                                <span class="checkmark"></span>
+                                9th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="10">
+                                <span class="checkmark"></span>
+                                10th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="11">
+                                <span class="checkmark"></span>
+                                11th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="12">
+                                <span class="checkmark"></span>
+                                12th Grade
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="abiturient">
+                                <span class="checkmark"></span>
+                                University Entrance Exam (Abiturient)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="bachelor_1">
+                                <span class="checkmark"></span>
+                                1st Year (Bachelor's)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="bachelor_2">
+                                <span class="checkmark"></span>
+                                2nd Year (Bachelor's)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="bachelor_3">
+                                <span class="checkmark"></span>
+                                3rd Year (Bachelor's)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="bachelor_4">
+                                <span class="checkmark"></span>
+                                4th Year (Bachelor's)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="masters">
+                                <span class="checkmark"></span>
+                                Master's
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="phd">
+                                <span class="checkmark"></span>
+                                Doctorate (PhD)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gradeLevels" value="other">
+                                <span class="checkmark"></span>
+                                Other
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Gender Filter -->
+                    <div class="filter-group">
+                        <h4>Gender</h4>
+                        <div class="filter-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gender" value="male">
+                                <span class="checkmark"></span>
+                                Male
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gender" value="female">
+                                <span class="checkmark"></span>
+                                Female
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gender" value="other">
+                                <span class="checkmark"></span>
+                                Other
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="gender" value="prefer_not_to_say">
+                                <span class="checkmark"></span>
+                                Prefer not to say
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="filter-group">
+                        <h4>Price Range (GEL/hour)</h4>
+                        <div class="price-range">
+                            <input type="range" id="priceRange" min="10" max="200" value="10" class="range-slider">
+                            <div class="price-labels">
+                                <span>10</span>
+                                <span id="maxPrice">200</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rating Filter -->
+                    <div class="filter-group">
+                        <h4>Minimum Rating</h4>
+                        <div class="rating-filter">
+                            <label class="checkbox-label">
+                                <input type="radio" name="minRating" value="0" checked>
+                                <span class="radio-mark"></span>
+                                Any rating
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="minRating" value="4">
+                                <span class="radio-mark"></span>
+                                4+ stars
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="minRating" value="4.5">
+                                <span class="radio-mark"></span>
+                                4.5+ stars
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Teaching Method -->
+                    <div class="filter-group">
+                        <h4>Teaching Method</h4>
+                        <div class="filter-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="teachingMethod" value="online">
+                                <span class="checkmark"></span>
+                                Online
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="teachingMethod" value="student_visits">
+                                <span class="checkmark"></span>
+                                Student visits tutor
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="teachingMethod" value="tutor_visits">
+                                <span class="checkmark"></span>
+                                Tutor visits student
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Experience Level -->
+                    <div class="filter-group">
+                        <h4>Experience Level</h4>
+                        <div class="filter-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="experience" value="0-1">
+                                <span class="checkmark"></span>
+                                0-1 years
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="experience" value="2-3">
+                                <span class="checkmark"></span>
+                                2-3 years
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="experience" value="4-5">
+                                <span class="checkmark"></span>
+                                4-5 years
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="experience" value="6-10">
+                                <span class="checkmark"></span>
+                                6-10 years
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="experience" value="10+">
+                                <span class="checkmark"></span>
+                                10+ years
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Results Count -->
+                    <div class="filter-results">
+                        <p id="resultsCount">Loading tutors...</p>
+                    </div>
+                </aside>
+
+                <!-- Main Content Area -->
+                <main class="search-main">
+                    <!-- Sort Options -->
+                    <div class="sort-header">
+                        <div class="sort-options">
+                            <label>Sort by:</label>
+                            <select id="sortSelect" onchange="updateSort()">
+                                <option value="recommended">Recommended</option>
+                                <option value="rating">Highest Rated</option>
+                                <option value="demand">Most Demanded</option>
+                                <option value="price_asc">Price: Low to High</option>
+                                <option value="price_desc">Price: High to Low</option>
+                                <option value="newest">New Tutors</option>
+                            </select>
+                        </div>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid" onclick="setView('grid')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="14" width="7" height="7"></rect>
+                                    <rect x="3" y="14" width="7" height="7"></rect>
+                                </svg>
+                            </button>
+                            <button class="view-btn" data-view="list" onclick="setView('list')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tutors Grid -->
+                    <div class="tutors-container" id="tutorsContainer">
+                        <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+                            <div class="spinner"></div>
+                            <p>Loading tutors...</p>
+                        </div>
+                        <div class="tutors-grid" id="tutorsGrid">
+                            <!-- Tutor cards will be populated dynamically -->
+                        </div>
+                        <div class="no-results" id="noResults" style="display: none;">
+                            <div class="no-results-icon">🔍</div>
+                            <h3>No tutors found</h3>
+                            <p>Try adjusting your filters or search terms</p>
+                            <button class="btn btn-primary" onclick="clearFilters()">Clear Filters</button>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+                        <button class="btn btn-secondary" onclick="loadMoreTutors()">Load More Tutors</button>
+                    </div>
+                </main>
+
+                <!-- Tutor Detail Panel -->
+                <aside class="tutor-detail-panel" id="tutorDetailPanel">
+                    <div class="tutor-detail-content">
+                        <div class="tutor-detail-placeholder">
+                            <div class="placeholder-icon">👨‍🏫</div>
+                            <h3>Select a tutor to view details</h3>
+                            <p>Click on any tutor card to see their full profile, subjects, pricing, and reviews.</p>
+                        </div>
+                    </div>
+                </aside>
+        </div>
+    </div>
+
+    <!-- Video Popup Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-overlay" onclick="closeVideoModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeVideoModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="video-container">
+                <video id="tutorVideo" controls>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="video-info">
+                <h3 id="videoTutorName"></h3>
+                <p id="videoTutorSubjects"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
