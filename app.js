@@ -158,7 +158,7 @@ function loadFeaturedTutors() {
     const featuredTutors = [
         {
             id: '1',
-            firstName: 'Avalo',
+            firstName: 'TeacherName',
             lastName: 'Kipiani',
             profileImage: null,
             subjects: ['Calculus', 'Physics'],
@@ -169,14 +169,14 @@ function loadFeaturedTutors() {
             teachingHours: 1200,
             yearsExperience: 8,
             lessonFormats: ['Online', 'Student visits'],
-            pinnedComment: 'Avalo helped me improve my calculus grade from C to A+ in just 3 months!',
+            pinnedComment: 'TeacherName helped me improve my calculus grade from C to A+ in just 3 months!',
             verifiedTrusted: true,
             gradeLevels: [9, 10, 11, 12],
             gender: 'male'
         },
         {
             id: '2',
-            firstName: 'Aval',
+            firstName: 'TeacherName',
             lastName: 'Gelashvili',
             profileImage: null,
             subjects: ['English', 'Georgian'],
@@ -187,14 +187,14 @@ function loadFeaturedTutors() {
             teachingHours: 800,
             yearsExperience: 5,
             lessonFormats: ['Online'],
-            pinnedComment: 'Aval is an amazing teacher! Her patience and teaching methods are outstanding.',
+            pinnedComment: 'TeacherName is an amazing teacher! Her patience and teaching methods are outstanding.',
             verifiedTrusted: true,
             gradeLevels: [1, 2, 3, 4, 5, 6],
             gender: 'female'
         },
         {
             id: '3',
-            firstName: 'Fagarati',
+            firstName: 'TeacherName',
             lastName: 'Mchedlishvili',
             profileImage: null,
             subjects: ['Chemistry', 'Biology'],
@@ -205,14 +205,14 @@ function loadFeaturedTutors() {
             teachingHours: 1500,
             yearsExperience: 12,
             lessonFormats: ['Online', 'Tutor visits'],
-            pinnedComment: 'Fagarati made organic chemistry understandable for me. Highly recommended!',
+            pinnedComment: 'TeacherName made organic chemistry understandable for me. Highly recommended!',
             verifiedTrusted: true,
             gradeLevels: [10, 11, 12],
             gender: 'female'
         },
         {
             id: '4',
-            firstName: 'Avalo',
+            firstName: 'TeacherName',
             lastName: 'Tsereteli',
             profileImage: null,
             subjects: ['History', 'Geography'],
@@ -223,14 +223,14 @@ function loadFeaturedTutors() {
             teachingHours: 900,
             yearsExperience: 6,
             lessonFormats: ['Online', 'Student visits'],
-            pinnedComment: 'Avalo makes history come alive! His storytelling is incredible.',
+            pinnedComment: 'TeacherName makes history come alive! His storytelling is incredible.',
             verifiedTrusted: true,
             gradeLevels: [7, 8, 9, 10],
             gender: 'male'
         },
         {
             id: '5',
-            firstName: 'Aval',
+            firstName: 'TeacherName',
             lastName: 'Chkheidze',
             profileImage: null,
             subjects: ['Programming', 'Web Development'],
@@ -241,14 +241,14 @@ function loadFeaturedTutors() {
             teachingHours: 1100,
             yearsExperience: 7,
             lessonFormats: ['Online'],
-            pinnedComment: 'Aval taught me Python from scratch. Now I work as a developer!',
+            pinnedComment: 'TeacherName taught me Python from scratch. Now I work as a developer!',
             verifiedTrusted: true,
             gradeLevels: [9, 10, 11, 12],
             gender: 'male'
         },
         {
             id: '6',
-            firstName: 'Fagarati',
+            firstName: 'TeacherName',
             lastName: 'Kalandadze',
             profileImage: null,
             subjects: ['Drawing', 'Painting'],
@@ -259,7 +259,7 @@ function loadFeaturedTutors() {
             teachingHours: 600,
             yearsExperience: 10,
             lessonFormats: ['Online', 'Tutor visits'],
-            pinnedComment: 'Fagarati helped me discover my artistic talent. Amazing teacher!',
+            pinnedComment: 'TeacherName helped me discover my artistic talent. Amazing teacher!',
             verifiedTrusted: true,
             gradeLevels: [1, 2, 3, 4, 5, 6, 7, 8],
             gender: 'female'
@@ -1128,7 +1128,7 @@ function loadMoreTutors() {
 const SAMPLE_TUTORS = [
     {
         id: 'tutor-001',
-        firstName: 'Avalo',
+        firstName: 'TeacherName',
         lastName: 'Kipiani',
         profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
         subjects: [
@@ -1139,7 +1139,7 @@ const SAMPLE_TUTORS = [
         gradeLevels: [9, 10, 11, 12],
         gender: 'male',
         bio: 'Experienced mathematics and physics tutor with 8 years of teaching experience. Specializes in advanced calculus and physics concepts.',
-        detailedBio: 'Avalo is a passionate mathematics and physics educator with a Master\'s degree in Applied Mathematics from Tbilisi State University. He has been helping students excel in their studies for over 8 years, with a particular focus on making complex mathematical concepts accessible and engaging.',
+        detailedBio: 'TeacherName is a passionate mathematics and physics educator with a Master\'s degree in Applied Mathematics from Tbilisi State University. He has been helping students excel in their studies for over 8 years, with a particular focus on making complex mathematical concepts accessible and engaging.',
         hourlyRate: 45,
         subjectRates: {
             'Mathematics for School Students (Grades 1–10)': 45,
@@ -1151,7 +1151,7 @@ const SAMPLE_TUTORS = [
         ratingCount: 127,
         yearsExperience: 8,
         lessonFormats: ['Online', 'Student visits'],
-        pinnedComment: 'Avalo helped me improve my calculus grade from C to A+ in just 3 months! His explanations are clear and he\'s very patient.',
+        pinnedComment: 'TeacherName helped me improve my calculus grade from C to A+ in just 3 months! His explanations are clear and he\'s very patient.',
         introVideoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         verifiedTrusted: true,
         reviews: [
@@ -1162,7 +1162,7 @@ const SAMPLE_TUTORS = [
     },
     {
         id: 'tutor-002',
-        firstName: 'Aval',
+        firstName: 'TeacherName',
         lastName: 'Gelashvili',
         profileImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=300&h=300&fit=crop&crop=face',
         subjects: [
@@ -1173,7 +1173,7 @@ const SAMPLE_TUTORS = [
         gradeLevels: [1, 2, 3, 4, 5, 6, 7, 8],
         gender: 'female',
         bio: 'Native Georgian speaker with TESOL certification and 5 years of experience teaching languages.',
-        detailedBio: 'Aval is a certified language instructor with a TESOL certificate and extensive experience in both English and Georgian language instruction. She holds a degree in Linguistics and has worked with students of all ages.',
+        detailedBio: 'TeacherName is a certified language instructor with a TESOL certificate and extensive experience in both English and Georgian language instruction. She holds a degree in Linguistics and has worked with students of all ages.',
         hourlyRate: 40,
         subjectRates: {
             'English for School Students (Grades 1–10)': 45,
@@ -1185,7 +1185,7 @@ const SAMPLE_TUTORS = [
         ratingCount: 89,
         yearsExperience: 5,
         lessonFormats: ['Online'],
-        pinnedComment: 'Aval is an amazing teacher! Her patience and teaching methods are outstanding.',
+        pinnedComment: 'TeacherName is an amazing teacher! Her patience and teaching methods are outstanding.',
         introVideoUrl: null,
         verifiedTrusted: true,
         reviews: [
@@ -1195,7 +1195,7 @@ const SAMPLE_TUTORS = [
     },
     {
         id: 'tutor-003',
-        firstName: 'Fagarati',
+        firstName: 'TeacherName',
         lastName: 'Mchedlishvili',
         profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face',
         subjects: [
@@ -1205,7 +1205,7 @@ const SAMPLE_TUTORS = [
         gradeLevels: [10, 11, 12],
         gender: 'female',
         bio: 'PhD in Chemistry with extensive research and teaching background in life sciences.',
-        detailedBio: 'Dr. Fagarati Mchedlishvili is a highly qualified chemistry and biology educator with a PhD in Organic Chemistry.',
+        detailedBio: 'Dr. TeacherName Mchedlishvili is a highly qualified chemistry and biology educator with a PhD in Organic Chemistry.',
         hourlyRate: 55,
         subjectRates: {
             'Chemistry': 60,
@@ -1216,7 +1216,7 @@ const SAMPLE_TUTORS = [
         ratingCount: 156,
         yearsExperience: 12,
         lessonFormats: ['Online', 'Tutor visits'],
-        pinnedComment: 'Fagarati made organic chemistry understandable for me. Highly recommended!',
+        pinnedComment: 'TeacherName made organic chemistry understandable for me. Highly recommended!',
         introVideoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
         verifiedTrusted: true,
         reviews: [
