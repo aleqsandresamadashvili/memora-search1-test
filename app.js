@@ -33,9 +33,9 @@ if (document.readyState === 'loading') {
 
 function getCurrentPage() {
     const path = window.location.pathname;
-    if (path.includes('login.html')) return 'login';
-    if (path.includes('signup-student.html')) return 'signup-student';
-    if (path.includes('signup-tutor.html')) return 'signup-tutor';
+    if (path.includes('auth/login.html')) return 'login';
+    if (path.includes('auth/signup-student.html')) return 'signup-student';
+    if (path.includes('auth/signup-tutor.html')) return 'signup-tutor';
     if (path.includes('profile-setup.html')) return 'profile-setup';
     if (path.includes('search.html')) return 'search';
     return 'home';
@@ -358,7 +358,7 @@ function handleStudentSignup(e) {
     // Mock signup - redirect to login
     showSuccess('Account created successfully! Redirecting to login...');
     setTimeout(() => {
-        window.location.href = 'login.html';
+        window.location.href = 'auth/login.html';
     }, 1500);
 }
 
